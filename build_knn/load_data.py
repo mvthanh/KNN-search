@@ -53,8 +53,14 @@ def load_data(file_path):
         for img_file in list_imgs:
             abs_dir = os.path.join(data_dir, img_file)
             img_cv = cv2.imread(abs_dir, 1)
-            img_cv = cv2.resize(img_cv, (224, 224))
-            X.append(img_cv)
+            img_cv = cv2.resize(img_cv, (160, 160))
+
+            face_pixels = img_cv.astype('float32')
+            # standardize pixel values across channels (global)
+            mean, std = face_pixels.mean(), face_pixels.std()
+            face_pixels = (face_pixels - mean) / std
+
+            X.append(face_pixels)
             y.append(label_dict[dir_])
     save_label_dict(label_dict)
     X = np.array(X)

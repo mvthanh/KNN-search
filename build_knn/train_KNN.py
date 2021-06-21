@@ -29,8 +29,14 @@ def train_KNN_folder(file_path, embedding_model, KNN_model):
         for img_file in list_imgs:
             abs_dir = os.path.join(data_dir, img_file)
             img_cv = cv2.imread(abs_dir)
-            img_cv = cv2.resize(img_cv, (224, 224))
-            img_np = np.asarray([img_cv])
+            img_cv = cv2.resize(img_cv, (160, 160))
+
+            face_pixels = img_cv.astype('float32')
+            # standardize pixel values across channels (global)
+            mean, std = face_pixels.mean(), face_pixels.std()
+            face_pixels = (face_pixels - mean) / std
+
+            img_np = np.asarray([face_pixels])
             X.append(img_np)
             y.append(label_dict[dir_])
     if add_new:
@@ -103,8 +109,14 @@ def evaluate_folder(file_path, embedding_model, KNN_model):
         for img_file in list_imgs:
             abs_dir = os.path.join(data_dir, img_file)
             img_cv = cv2.imread(abs_dir)
-            img_cv = cv2.resize(img_cv, (224, 224))
-            img_np = np.asarray([img_cv])
+            img_cv = cv2.resize(img_cv, (160, 160))
+
+            face_pixels = img_cv.astype('float32')
+            # standardize pixel values across channels (global)
+            mean, std = face_pixels.mean(), face_pixels.std()
+            face_pixels = (face_pixels - mean) / std
+
+            img_np = np.asarray([face_pixels])
             imgs.append(img_np)
         imgs = np.array(imgs)
         imgs = np.squeeze(imgs)

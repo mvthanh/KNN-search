@@ -37,9 +37,9 @@ def main(argv):
     args = parser.parse_args()
     KNN_model = Jugde(args.KNN_path)
 
-    latest = tf.train.latest_checkpoint(args.embedding_path)
+    # latest = tf.train.latest_checkpoint(args.embedding_path)
     model = load_facenet()
-    model.load_weights(latest).expect_partial()
+    # model.load_weights(latest).expect_partial()
 
     if args.test_dir != "Null":
         print("wtf")

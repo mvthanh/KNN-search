@@ -13,7 +13,7 @@ class Jugde():
         self.KNN_DIR = KNN_DIR
         if not os.path.exists(KNN_DIR):
             p = hnswlib.Index(space='cosine', dim=self.dim_KNN)
-            p.init_index(max_elements=10000, ef_construction=150, M=16)
+            p.init_index(max_elements=150000, ef_construction=150, M=16)
             p.set_ef(10)
             p.set_num_threads(4)
             return p
@@ -29,7 +29,7 @@ class Jugde():
 
     def find_item(self, vector, no_nearest=1):
         labels, distance = self.KNN_searcher.knn_query(vector, k=no_nearest)
-        return labels
+        return labels, distance
 
     def save_KNN(self):
         self.KNN_searcher.save_index(self.KNN_DIR)

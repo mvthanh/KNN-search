@@ -2,7 +2,7 @@ from keras.models import load_model
 
 
 def load_facenet():
-    model = load_model('../resources/facenet_keras.h5')
+    model = load_model(r'C:\Users\TechCare\Desktop\KNN\KNN-search\resources\facenet_keras.h5')
     return model
 
 
